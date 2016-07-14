@@ -12,10 +12,22 @@ sudo apt-get install -qy unzip \
                          python-pip \
                          python-virtualenv \
                          rsync  \
-                         make
+                         make \
+                         bzr
 
 sudo pip install -U pip
-sudo pip install bundletester flake8 pyyaml tox --upgrade
+sudo pip install flake8 pyyaml tox --upgrade
+
+cd /tmp
+bzr branch lp:~tvansteenburgh/python-jujuclient/beta11 jujuclient
+bzr branch lp:~tvansteenburgh/juju-deployer/beta11 deployer
+git clone https://github.com/juju/amulet
+git clone https://github.com/juju-solutions/bundletester
+
+cd /tmp/bundletester && sudo pip install -U ./
+cd /tmp/amulet && sudo pip install -U ./
+cd /tmp/deployer && sudo pip install -U ./
+cd /tmp/jujuclient && sudo pip install -U ./
 
 
 # Fix for CI choking on duplicate hosts if the host key has changed
